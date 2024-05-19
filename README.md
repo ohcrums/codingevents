@@ -1,0 +1,4 @@
+- This project is for practicing...
+  - fragments 
+  - form submission
+  - bootstrap
