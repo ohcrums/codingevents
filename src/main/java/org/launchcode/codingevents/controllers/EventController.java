@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/events")
+@RequestMapping("events")
 public class EventController {
 
     @GetMapping
@@ -25,8 +25,26 @@ public class EventController {
     }
 
     @PostMapping("create")
-    public String createEvent(@RequestParam String eventName, @RequestParam String eventDesc) {
+    public String processCreateEvent(@RequestParam String eventName, @RequestParam String eventDesc) {
         EventData.add(new Event(eventName, eventDesc));
         return "redirect:/events";
     }
+
+    @GetMapping("delete")
+    public String displayDeleteEventForm(Model model) {
+        model.addAttribute("title", "Delete Events");
+        model.addAttribute("events", EventData.getAll());
+        return "events/delete";
+    }
+
+    @PostMapping("delete")
+    public String processDeleteEventsForm(@RequestParam(required = false) int[] eventIds) {
+        if (eventIds != null) {
+            for (int id : eventIds) {
+                EventData.remove(id);
+            }
+        }
+        return "redirect:/events";
+    }
+
 }
