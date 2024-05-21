@@ -1,5 +1,6 @@
 package org.launchcode.codingevents.controllers;
 
+import org.launchcode.codingevents.models.Event;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,17 +16,18 @@ import java.util.Map;
 @Controller
 @RequestMapping("/events")
 public class EventController {
+    private static List<Event> events = new ArrayList<>();
 
-//    private static List<String> events = new ArrayList<>();
-    private static HashMap<String, String> events = new HashMap<>();
-
+    public void defaultEvents(){
+        // not sure where to put these
+        events.add(new Event("Menteaship","A fun meetup for connecting with mentors"));
+        events.add(new Event("Code With Pride","A fun meetup sponsored by LaunchCode"));
+        events.add(new Event("Javascripty", "An imaginary meetup for Javascript developers"));
+        return;
+    }
 
     @GetMapping
     public String displayAllEvents(Model model){
-        events.put("Menteaship","A fun meetup for connecting with mentors");
-        events.put("Code With Pride","A fun meetup sponsored by LaunchCode");
-        events.put("Javascripty", "An imaginary meetup for Javascript developers");
-
         model.addAttribute("events", events);
         return "events/index";
     }
@@ -37,8 +39,7 @@ public class EventController {
 
     @PostMapping("create")
     public String createEvent(@RequestParam String eventName, String eventDesc) {
-        events.put(eventName, eventDesc);
-
+        events.add(new Event(eventName, eventDesc));
         return "redirect:/events";
     }
 }
