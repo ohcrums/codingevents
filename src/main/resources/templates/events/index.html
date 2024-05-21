@@ -18,16 +18,10 @@
                 <td th:text="${event.id}"></td>
                 <td th:text="${event.name}"></td>
                 <td th:text="${event.description}"></td>
+                <td >
+                    <a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a>
+                </td>
             </tr>
-
-
-
-<!--   when using hashmap     -->
-<!--        <tr th:each="event : ${events.entrySet()}">-->
-<!--            <td th:text="${event.key}"></td>-->
-<!--            <td th:text="${event.value}"></td>-->
-<!--        </tr>-->
-        <hr />
     </table>
 
 </body>
