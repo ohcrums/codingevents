@@ -10,9 +10,9 @@ public class EventData {
 
     private static final Map<Integer, Event> events = new HashMap<>();
     static {
-        add(new Event("Menteaship","A fun meetup for connecting with mentors", "iUseArch@bytheway.co.ca"));
-        add(new Event("Code With Pride","A fun meetup sponsored by LaunchCode", "EmphasisOnTheWith@hearmetype.org"));
-        add(new Event("Javascripty", "An imaginary meetup for Javascript developers", "ScriptMaster@protonmail.gov"));
+        add(new Event("Menteaship","A fun meetup for connecting with mentors", "space", "iUseArch@bytheway.co.ca", true, 5));
+        add(new Event("Code With Pride","A fun meetup sponsored by LaunchCode", "The Cool Place", "EmphasisOnTheWith@hearmetype.org", true, 88));
+        add(new Event("Javascripty", "An imaginary meetup for Javascript developers", "Mind Palace","ScriptMaster@protonmail.gov", true, 42));
     }
 
     public static Collection<Event> getAll() {
