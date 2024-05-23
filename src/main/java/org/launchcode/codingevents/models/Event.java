@@ -38,6 +38,7 @@ public class Event {
     }
 
     public Event(String name, String description, String location, String contactEmail, Boolean rsvp, int numberOfAttendees) {
+        this();
         this.name = name;
         this.description = description;
         this.location = location;
