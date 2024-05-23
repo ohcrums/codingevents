@@ -16,6 +16,7 @@
                 <th>Contact Email</th>
                 <th>RSVP</th>
                 <th>Attendees</th>
+                <th>Type</th>
                 <th>-</th>
             </tr>
         </thead>
@@ -27,6 +28,7 @@
                 <td th:text="${event.contactEmail}"></td>
                 <td th:text="${event.rsvp}"></td>
                 <td th:text="${event.numberOfAttendees}"></td>
+                <td th:text="${event.type.displayName}"></td>
                 <td >
                     <a th:href="@{/events/edit/{id}(id=${event.id})}">Edit</a>
                 </td>

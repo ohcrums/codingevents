@@ -21,6 +21,8 @@ public class Event {
     @NotBlank
     private String location;
 
+    private EventType type;
+
     @Email
     @NotBlank(message = "email is required")
     private String contactEmail;
@@ -37,13 +39,15 @@ public class Event {
         nextId ++;
     }
 
-    public Event(String name, String description, String location, String contactEmail, Boolean rsvp, int numberOfAttendees) {
+    public Event(String name, String description, String location, String contactEmail, Boolean rsvp, int numberOfAttendees, EventType type) {
+        this();
         this.name = name;
         this.description = description;
         this.location = location;
         this.contactEmail = contactEmail;
         this.rsvp = rsvp;
         this.numberOfAttendees = numberOfAttendees;
+        this.type = type;
     }
 
     public String getName() {
@@ -88,6 +92,14 @@ public class Event {
 
     public void setRsvp(@AssertTrue Boolean rsvp) {
         this.rsvp = rsvp;
+    }
+
+    public EventType getType() {
+        return type;
+    }
+
+    public void setType(EventType type) {
+        this.type = type;
     }
 
     @Positive(message = "Number of attendees must be one or more.")

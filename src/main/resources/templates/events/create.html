@@ -51,6 +51,17 @@
         </label>
         <p class="error" th:errors="${event.rsvp}"></p>
     </div>
+    <br>
+    <div class="form-group">
+        <label>Type
+            <select th:field="${event.type}">
+                <option th:each="type : ${types}"
+                        th:value="${type}"
+                        th:text="${type.displayName}"
+                ></option>
+            </select>
+        </label>
+    </div>
     <br><br>
     <div class="form-group">
         <label>
