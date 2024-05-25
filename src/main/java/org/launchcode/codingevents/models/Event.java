@@ -1,14 +1,18 @@
 package org.launchcode.codingevents.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
-import jdk.jfr.BooleanFlag;
 
 import java.util.Objects;
 
-
+@Entity
 public class Event {
+
+    @Id
+    @GeneratedValue
     private int id;
-    private static int nextId = 1;
 
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters!")
     @NotBlank
@@ -34,13 +38,9 @@ public class Event {
     private int numberOfAttendees;
 
 
-    public Event() {
-        this.id = nextId;
-        nextId ++;
-    }
+    public Event() {}
 
     public Event(String name, String description, String location, String contactEmail, Boolean rsvp, int numberOfAttendees, EventType type) {
-        this();
         this.name = name;
         this.description = description;
         this.location = location;
