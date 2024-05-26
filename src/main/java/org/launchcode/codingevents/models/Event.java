@@ -1,6 +1,8 @@
 package org.launchcode.codingevents.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.*;
 
 @Entity
@@ -17,7 +19,9 @@ public class Event extends AbstractEntity {
     @NotBlank
     private String location;
 
-    private EventType type;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @NotNull(message = "Category is required")
+    private EventCategory eventCategory;
 
     @Email
     @NotBlank(message = "email is required")
@@ -32,14 +36,14 @@ public class Event extends AbstractEntity {
 
     public Event() {}
 
-    public Event(String name, String description, String location, String contactEmail, Boolean rsvp, int numberOfAttendees, EventType type) {
+    public Event(String name, String description, String location, String contactEmail, Boolean rsvp, int numberOfAttendees, EventCategory eventCategory) {
         this.name = name;
         this.description = description;
         this.location = location;
         this.contactEmail = contactEmail;
         this.rsvp = rsvp;
         this.numberOfAttendees = numberOfAttendees;
-        this.type = type;
+        this.eventCategory = eventCategory;
     }
 
     public String getName() {
@@ -82,14 +86,6 @@ public class Event extends AbstractEntity {
         this.rsvp = rsvp;
     }
 
-    public EventType getType() {
-        return type;
-    }
-
-    public void setType(EventType type) {
-        this.type = type;
-    }
-
     @Positive(message = "Number of attendees must be one or more.")
     public int getNumberOfAttendees() {
         return numberOfAttendees;
@@ -97,6 +93,14 @@ public class Event extends AbstractEntity {
 
     public void setNumberOfAttendees(@Positive(message = "Number of attendees must be one or more.") int numberOfAttendees) {
         this.numberOfAttendees = numberOfAttendees;
+    }
+
+    public @NotNull(message = "Category is required") EventCategory getEventCategory() {
+        return eventCategory;
+    }
+
+    public void setEventCategory(@NotNull(message = "Category is required") EventCategory eventCategory) {
+        this.eventCategory = eventCategory;
     }
 
     @Override
