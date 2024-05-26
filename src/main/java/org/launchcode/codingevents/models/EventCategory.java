@@ -1,9 +1,7 @@
 package org.launchcode.codingevents.models;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-
-import java.util.Objects;
+import jakarta.persistence.Entity;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class EventCategory extends AbstractEntity{
@@ -26,8 +24,6 @@ public class EventCategory extends AbstractEntity{
     public void setName(String name) {
         this.name = name;
     }
-
-
 
     @Override
     public String toString() {
