@@ -2,9 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="~{fragments :: head}"></head>
 <body class="container">
-<nav th:replace="~{fragments :: navigation}"></nav>
 
-<h1>Event Categories</h1>
+<header th:replace="~{fragments :: header}"></header>
 
 <table class="table table-striped">
     <thead>
@@ -13,7 +12,7 @@
     </tr>
     </thead>
     <tr th:each="category : ${categories}">
-        <td><a th:href="'events?categoryId=' + ${category.id}" th:text="${category.name}"></a> </td>
+        <td><a th:text="${category.name}" th:href="'/events?categoryId=' + ${category.id}"></a></td>
     </tr>
 
 </table>

@@ -5,31 +5,32 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Event extends AbstractEntity {
 
-    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters!")
-    @NotBlank
+    @NotBlank(message = "Name is required")
+    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
-
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @NotNull(message = "Category is required")
-    private EventCategory eventCategory;
 
     @OneToOne(cascade = CascadeType.ALL)
     @Valid
     @NotNull
     private EventDetails eventDetails;
 
-
-    public Event() {}
+    @ManyToOne
+    @NotNull(message = "Category is required")
+    private EventCategory eventCategory;
 
     public Event(String name, EventCategory eventCategory) {
         this.name = name;
         this.eventCategory = eventCategory;
     }
+
+    public Event() {}
 
     public String getName() {
         return name;
@@ -39,11 +40,11 @@ public class Event extends AbstractEntity {
         this.name = name;
     }
 
-    public @NotNull(message = "Category is required") EventCategory getEventCategory() {
+    public EventCategory getEventCategory() {
         return eventCategory;
     }
 
-    public void setEventCategory(@NotNull(message = "Category is required") EventCategory eventCategory) {
+    public void setEventCategory(EventCategory eventCategory) {
         this.eventCategory = eventCategory;
     }
 

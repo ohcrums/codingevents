@@ -8,6 +8,7 @@ import java.util.Objects;
 
 @MappedSuperclass
 public abstract class AbstractEntity {
+
     @Id
     @GeneratedValue
     private int id;
@@ -26,7 +27,7 @@ public abstract class AbstractEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hash(id);
     }
 
 }

@@ -5,12 +5,11 @@ import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventRepository;
 import org.launchcode.codingevents.models.Event;
 import org.launchcode.codingevents.models.EventCategory;
-import org.launchcode.codingevents.models.EventDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -25,21 +24,21 @@ public class EventController {
     private EventCategoryRepository eventCategoryRepository;
 
     @GetMapping
-    public String displayAllEvents(@RequestParam(required = false) Integer categoryId, Model model){
-        if(categoryId == null) {
+    public String displayEvents(@RequestParam(required = false) Integer categoryId, Model model) {
+
+        if (categoryId == null) {
             model.addAttribute("title", "All Events");
             model.addAttribute("events", eventRepository.findAll());
         } else {
             Optional<EventCategory> result = eventCategoryRepository.findById(categoryId);
-            if (result.isEmpty()){
+            if (result.isEmpty()) {
                 model.addAttribute("title", "Invalid Category ID: " + categoryId);
             } else {
                 EventCategory category = result.get();
-                model.addAttribute("title", "Events in Category: " + category.getName());
+                model.addAttribute("title", "Events in category: " + category.getName());
                 model.addAttribute("events", category.getEvents());
             }
         }
-
 
         return "events/index";
     }
@@ -53,11 +52,13 @@ public class EventController {
     }
 
     @PostMapping("create")
-    public String processCreateEventForm(@ModelAttribute @Valid Event newEvent, Errors errors, Model model) {
-        if (errors.hasErrors()) {
+    public String processCreateEventForm(@ModelAttribute @Valid Event newEvent,
+                                         Errors errors, Model model) {
+        if(errors.hasErrors()) {
             model.addAttribute("title", "Create Event");
             return "events/create";
         }
+
         eventRepository.save(newEvent);
         return "redirect:/events";
     }
@@ -71,40 +72,30 @@ public class EventController {
 
     @PostMapping("delete")
     public String processDeleteEventsForm(@RequestParam(required = false) int[] eventIds) {
+
         if (eventIds != null) {
             for (int id : eventIds) {
                 eventRepository.deleteById(id);
             }
         }
+
         return "redirect:/events";
     }
 
-    @GetMapping("edit/{eventId}")
-    public String displayEditForm(Model model, @PathVariable int eventId){
-        Optional<Event> possibleEvent = eventRepository.findById(eventId);
-        Event eventToEdit;
-        // TODO: verify this method works
-        if (possibleEvent.isPresent()) {
-            eventToEdit = possibleEvent.get();
-            String title = "Edit Event " + eventToEdit.getName() + " (id=" + eventToEdit.getId() + ")";
-            model.addAttribute("event", eventToEdit);
-            model.addAttribute("title", title );
-        }
-        return "events/edit";
-    }
+    @GetMapping("detail")
+    public String displayEventDetails(@RequestParam Integer eventId, Model model) {
 
-    @PostMapping("edit")
-    public String processEditForm(int eventId, String name, String description) {
-        Optional<Event> possibleEvent = eventRepository.findById(eventId);
-        Event eventToEdit;
-        if (possibleEvent.isPresent()) {
-            eventToEdit = possibleEvent.get();
-            eventToEdit.setName(name);
-            EventDetails detailsToEdit = eventToEdit.getEventDetails();
-            detailsToEdit.setDescription(description);
-            eventToEdit.setEventDetails(detailsToEdit);
+        Optional<Event> result = eventRepository.findById(eventId);
+
+        if (result.isEmpty()) {
+            model.addAttribute("title", "Invalid Event ID: " + eventId);
+        } else {
+            Event event = result.get();
+            model.addAttribute("title", event.getName() + " Details");
+            model.addAttribute("event", event);
         }
-        return "redirect:/events";
+
+        return "events/detail";
     }
 
 }
