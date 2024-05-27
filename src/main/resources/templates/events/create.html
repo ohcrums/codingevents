@@ -19,37 +19,37 @@
     <br>
     <div class="form-group">
         <label>Event Description:
-            <input th:field="${event.description}" class="form-control">
+            <input th:field="${event.eventDetails.description}" class="form-control">
         </label>
-        <p class="error" th:errors="${event.description}"></p>
+        <p class="error" th:errors="${event.eventDetails.description}"></p>
     </div>
     <br>
     <div class="form-group">
         <label>Contact Email:
-            <input th:field="${event.contactEmail}" class="form-control">
+            <input th:field="${event.eventDetails.contactEmail}" class="form-control">
         </label>
-        <p class="error" th:errors="${event.contactEmail}"></p>
+        <p class="error" th:errors="${event.eventDetails.contactEmail}"></p>
     </div>
     <div class="form-group">
         <label>Location:
-            <input th:field="${event.location}" class="form-control">
+            <input th:field="${event.eventDetails.location}" class="form-control">
         </label>
-        <p class="error" th:errors="${event.location}"></p>
+        <p class="error" th:errors="${event.eventDetails.location}"></p>
     </div>
     <div class="form-group">
         <label>Number of Attendees:
-            <input th:field="${event.numberOfAttendees}" class="form-control">
+            <input th:field="${event.eventDetails.numberOfAttendees}" class="form-control">
         </label>
-        <p class="error" th:errors="${event.numberOfAttendees}"></p>
+        <p class="error" th:errors="${event.eventDetails.numberOfAttendees}"></p>
     </div>
     <div class="form-group">
         <label>RSVP:
-            <select  th:field="${event.rsvp}" class="form-select">
+            <select  th:field="${event.eventDetails.rsvp}" class="form-select">
                 <option value="true">Yes</option>
                 <option value="false">No</option>
             </select>
         </label>
-        <p class="error" th:errors="${event.rsvp}"></p>
+        <p class="error" th:errors="${event.eventDetails.rsvp}"></p>
     </div>
     <br>
     <div class="form-group">

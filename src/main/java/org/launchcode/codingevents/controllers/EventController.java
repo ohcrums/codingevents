@@ -5,6 +5,7 @@ import org.launchcode.codingevents.data.EventCategoryRepository;
 import org.launchcode.codingevents.data.EventRepository;
 import org.launchcode.codingevents.models.Event;
 import org.launchcode.codingevents.models.EventCategory;
+import org.launchcode.codingevents.models.EventDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -99,7 +100,9 @@ public class EventController {
         if (possibleEvent.isPresent()) {
             eventToEdit = possibleEvent.get();
             eventToEdit.setName(name);
-            eventToEdit.setDescription(description);
+            EventDetails detailsToEdit = eventToEdit.getEventDetails();
+            detailsToEdit.setDescription(description);
+            eventToEdit.setEventDetails(detailsToEdit);
         }
         return "redirect:/events";
     }
